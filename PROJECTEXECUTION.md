@@ -63,9 +63,23 @@ npm run lint
 
 ## Deployment
 
+### Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Go to [vercel.com](https://vercel.com) and sign in
+3. Click **Add New** → **Project** and import your repository
+4. Vercel auto-detects Vite; ensure:
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
+5. Click **Deploy**
+
+The `vercel.json` in the project configures SPA routing so all routes serve `index.html`.
+
+### Other Static Hosting
+
 1. Build: `npm run build`
-2. Deploy the `dist/` folder to any static hosting (Vercel, Netlify, GitHub Pages, etc.)
-3. Ensure the server is configured for SPA routing (all routes serve `index.html`)
+2. Deploy the `dist/` folder to Netlify, GitHub Pages, etc.
+3. Configure SPA routing (all routes serve `index.html`)
 
 ## Default Test Accounts
 

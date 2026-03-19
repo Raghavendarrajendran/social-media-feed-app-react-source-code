@@ -1,0 +1,10 @@
+node_modules
+.git
+*.log
+.env*
+coverage
+.vitest
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx

@@ -11,6 +11,7 @@ import {
   type PersistedState,
 } from '../utils/localStorage';
 import { mockUsers } from '../data/mockData';
+import type { User } from '../types';
 
 const persisted = loadPersistedState();
 const hasValidPersistedState =
@@ -24,8 +25,8 @@ const hasValidPersistedState =
 // Seed user IDs that must always exist (admin, alice, bob)
 const SEED_USER_IDS = ['u_admin', 'u1', 'u2'];
 
-function mergeWithSeedUsers(persistedUsers: { items?: Record<string, unknown> }): { items: Record<string, unknown> } {
-  const items = { ...(persistedUsers?.items ?? {}) };
+function mergeWithSeedUsers(persistedUsers: { items?: Record<string, User> }): { items: Record<string, User> } {
+  const items: Record<string, User> = { ...(persistedUsers?.items ?? {}) };
   for (const u of mockUsers) {
     if (SEED_USER_IDS.includes(u.id)) {
       items[u.id] = u;
@@ -37,7 +38,7 @@ function mergeWithSeedUsers(persistedUsers: { items?: Record<string, unknown> })
 const preloadedState = hasValidPersistedState
   ? {
       ...(persisted as Record<string, unknown>),
-      users: mergeWithSeedUsers((persisted as { users?: { items?: Record<string, unknown> } }).users ?? {}),
+      users: mergeWithSeedUsers((persisted as { users?: { items?: Record<string, User> } }).users ?? {}),
     }
   : undefined;
 
@@ -50,7 +51,7 @@ export const store = configureStore({
     theme: themeReducer,
     toast: toastReducer,
   },
-  preloadedState: preloadedState as never,
+  preloadedState,
 });
 
 store.subscribe(() => {
